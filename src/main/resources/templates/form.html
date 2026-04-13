@@ -1,10 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Form Input Mahasiswa</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+        h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .radio-group {
+            margin: 10px 0;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+
+<div class="container">
+    <h2>Form Input Mahasiswa</h2>
+
+    <form th:action="@{/save}" th:object="${user}" method="post">
+
+        <div class="form-group">
+            <label>Nama:</label>
+            <input type="text" th:field="*{nama}" placeholder="Masukkan Nama Lengkap" required />
+        </div>
+
+        <div class="form-group">
+            <label>NIM:</label>
+            <input type="text" th:field="*{nim}" placeholder="Masukkan NIM" required />
+        </div>
+
+        <div class="form-group">
+            <label>Jenis Kelamin:</label>
+            <div class="radio-group">
+                <input type="radio" th:field="*{jenisKelamin}" value="Laki-laki" id="lk" required />
+                <label style="display:inline; font-weight:normal;" for="lk">Laki-laki</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" th:field="*{jenisKelamin}" value="Perempuan" id="pr" />
+                <label style="display:inline; font-weight:normal;" for="pr">Perempuan</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit</button>
+    </form>
+
+    <a th:href="@{/home}" class="back-link"> Kembali ke Home</a>
+</div>
 
 </body>
 </html>
