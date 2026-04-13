@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home - Data Mahasiswa</title>
 </head>
 <body>
+<h2>MY Website - Ahmad Ajo Pratama (20230140057)</h2>
+<a th:href="@{/form}">Input Data Mahasiswa</a> | <a th:href="@{/logout}">Logout</a>
 
+<table border="1">
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>NIM</th>
+        <th>Jenis Kelamin</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${mahasiswa.empty}">
+        <td colspan="4">Belum ada data [cite: 84]</td>
+    </tr>
+    <tr th:each="m, iter : ${mahasiswa}">
+        <td th:text="${iter.count}"></td>
+        <td th:text="${m.nama}"></td>
+        <td th:text="${m.nim}"></td>
+        <td th:text="${m.jenisKelamin}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
