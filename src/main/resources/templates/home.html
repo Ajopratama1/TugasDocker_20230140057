@@ -3,10 +3,78 @@
 <head>
     <link rel="stylesheet" th:href="@{/static.css}">
     <title>Home - Data Mahasiswa</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 40px;
+            background-color: #f8f9fa;
+        }
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: white;
+            padding: 20px;
+            border: 3px solid #333; /* Gaya Boxy */
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+        .welcome-text h2 {
+            margin: 0;
+            color: #2c3e50;
+        }
+        .quote {
+            font-style: italic;
+            color: #555;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 20px;
+        }
+        th {
+            background-color: #333;
+            color: white;
+            padding: 12px;
+        }
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+        .nav-links {
+            margin-bottom: 15px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #3b5998;
+        }
+    </style>
 </head>
 <body>
-<h2>MY Website - Ahmad Ajo Pratama (20230140057)</h2>
-<a th:href="@{/form}">Input Data Mahasiswa</a> | <a th:href="@{/logout}">Logout</a>
+
+<div class="profile-section">
+    <img th:src="@{/ajo.png}" alt="Foto Ahmad Ajo Pratama" class="profile-img">
+    <div class="welcome-text">
+        <h2>MY Website - Ahmad Ajo Pratama (20230140057)</h2>
+        <p class="quote">"Maem, turu, kuliah, gym ,dan repeat"</p>
+        <p><strong>IT Student | Universitas Muhammadiyah Yogyakarta</strong></p>
+    </div>
+</div>
+
+<div class="nav-links">
+    <a th:href="@{/form}">+ Input Data Mahasiswa</a> |
+    <a th:href="@{/logout}" style="color: red;">Logout</a>
+</div>
 
 <table border="1">
     <thead>
@@ -19,7 +87,7 @@
     </thead>
     <tbody>
     <tr th:if="${mahasiswa.empty}">
-        <td colspan="4">Belum ada data [cite: 84]</td>
+        <td colspan="4">Belum ada data mahasiswa di database.</td>
     </tr>
     <tr th:each="m, iter : ${mahasiswa}">
         <td th:text="${iter.count}"></td>
@@ -29,5 +97,6 @@
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>
