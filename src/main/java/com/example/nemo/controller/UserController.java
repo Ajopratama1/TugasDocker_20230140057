@@ -1,18 +1,20 @@
 package com.example.nemo.controller;
 
 import com.example.nemo.model.User;
+import com.example.nemo.model.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class UserController {
 
-
-    private List<User> daftarMahasiswa = new ArrayList<>();
+    // 1. Hubungkan ke UserRepository (Hapus ArrayList yang lama)
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/")
     public String loginPage() {
@@ -21,7 +23,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String prosesLogin(@RequestParam String username, @RequestParam String password) {
-
+        // Login menggunakan NIM kamu sebagai password
         if ("admin".equals(username) && "20230140057".equals(password)) {
             return "redirect:/home";
         }
@@ -30,7 +32,9 @@ public class UserController {
 
     @GetMapping("/home")
     public String homePage(Model model) {
-        model.addAttribute("mahasiswa", daftarMahasiswa);
+        // 2. Ambil semua data dari DATABASE, bukan dari list
+        List<User> mahasiswaDariDb = userRepository.findAll();
+        model.addAttribute("mahasiswa", mahasiswaDariDb);
         return "home";
     }
 
@@ -42,7 +46,8 @@ public class UserController {
 
     @PostMapping("/save")
     public String simpanData(@ModelAttribute User user) {
-        daftarMahasiswa.add(user);
+        // 3. Simpan objek user langsung ke DATABASE
+        userRepository.save(user);
         return "redirect:/home";
     }
 
